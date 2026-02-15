@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:herplus/core/utils/nav_utils.dart';
+import 'package:herplus/pages/temp_pages/base_data_page.dart';
+import 'package:herplus/pages/temp_pages/period_page.dart';
+import 'package:herplus/pages/temp_pages/power_detail_page.dart';
+import 'package:herplus/pages/temp_pages/sleep_detail_page.dart';
+import 'package:herplus/pages/temp_pages/stress_page.dart';
 
 class BodyHeartPage extends StatelessWidget {
   const BodyHeartPage({super.key});
@@ -107,154 +113,189 @@ class BodyHeartPage extends StatelessWidget {
   }
 
   buildHeartBeatCard() {
-    return Container(
-      width: 110,
-      height: 98,
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage("assets/images/bg2.png")),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Image.asset("assets/icons/heart_icon.png", width: 32, height: 32),
-              SizedBox(width: 4),
-            ],
+    return
+      GestureDetector(
+        onTap: () {
+          NavUtils.push(BaseDataPage());
+        },
+        child: Container(
+          width: 110,
+          height: 98,
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            image: DecorationImage(image: AssetImage("assets/images/bg2.png")),
           ),
-          Text(
-            "73 bpm|98%",
-            style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.8),
-              fontSize: 12,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Image.asset("assets/icons/heart_icon.png", width: 32, height: 32),
+                  SizedBox(width: 4),
+                ],
+              ),
               Text(
-                "心率/血氧",
+                "73 bpm|98%",
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.8),
                   fontSize: 12,
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "心率/血氧",
+                    style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.8),
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
-        ],
-      ),
-    );
+        ),
+      )
+      ;
   }
 
   buildDateCard() {
-    return Container(
-      width: 110,
-      height: 98,
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage("assets/images/bg3.png")),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Image.asset("assets/icons/temp_icon.png", width: 32, height: 32),
-              SizedBox(width: 4),
-            ],
+    return
+      GestureDetector(
+        onTap: () {
+          NavUtils.push(PeriodPage());
+        },
+        child: Container(
+          width: 110,
+          height: 98,
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            image: DecorationImage(image: AssetImage("assets/images/bg3.png")),
           ),
-          Text(
-            "118/76mmHg",
-            style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.8),
-              fontSize: 12,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Image.asset("assets/icons/temp_icon.png", width: 32, height: 32),
+                  SizedBox(width: 4),
+                ],
+              ),
               Text(
-                "经期/排卵日",
+                "118/76mmHg",
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.8),
                   fontSize: 12,
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "经期/排卵日",
+                    style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.8),
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
-        ],
-      ),
-    );
+        ),
+      )
+      ;
   }
 
   buildHot() {
-    return Container(
-      height: 120,
-      padding: EdgeInsets.all(30),
-      margin: EdgeInsets.symmetric(horizontal: 20),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/xiaohao.png"),
-          // fit: BoxFit.cover,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "·今日消耗2,140kcal",
-            style: TextStyle(color: Color(0xFFF5FBDD), fontSize: 18),
+    return
+      GestureDetector(
+        onTap: () {
+          NavUtils.push(PowerDetailPage());
+        },
+        child: Container(
+          height: 120,
+          padding: EdgeInsets.all(30),
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/xiaohao.png"),
+              // fit: BoxFit.cover,
+            ),
           ),
-          Text("活力潮汐", style: TextStyle(color: Colors.white)),
-        ],
-      ),
-    );
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "·今日消耗2,140kcal",
+                style: TextStyle(color: Color(0xFFF5FBDD), fontSize: 18),
+              ),
+              Text("活力潮汐", style: TextStyle(color: Colors.white)),
+            ],
+          ),
+        ),
+      )
+      ;
   }
 
   buildSleepCard() {
-    return Container(
-      height: 370,
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/sleep_card.png"),
+    return
+      GestureDetector(
+        onTap: () {
+          NavUtils.push(SleepDetailPage());
+        },
+        child: Container(
+          height: 370,
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/sleep_card.png"),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 10),
+              Text("睡眠意识云", style: TextStyle(color: Colors.white, fontSize: 16)),
+              Text("8h12m • 8分", style: TextStyle(color: Colors.white)),
+            ],
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 10),
-          Text("睡眠意识云", style: TextStyle(color: Colors.white, fontSize: 16)),
-          Text("8h12m • 8分", style: TextStyle(color: Colors.white)),
-        ],
-      ),
-    );
+      )
+      ;
   }
 
   buildTemperatureCard() {
-    return Container(
-      height: 370,
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/tempulature.png"),
+    return
+      GestureDetector(
+        onTap: () {
+          NavUtils.push(StressPage());
+        },
+        child: Container(
+          height: 370,
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/tempulature.png"),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 10),
+              Text("情绪气象站", style: TextStyle(color: Colors.white, fontSize: 16)),
+              Text("平静·能量低 >", style: TextStyle(color: Color(0xFFC3EDF6))),
+            ],
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 10),
-          Text("情绪气象站", style: TextStyle(color: Colors.white, fontSize: 16)),
-          Text("平静·能量低 >", style: TextStyle(color: Color(0xFFC3EDF6))),
-        ],
-      ),
-    );
+      )
+      ;
   }
 }
 

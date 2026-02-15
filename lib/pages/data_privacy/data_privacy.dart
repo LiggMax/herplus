@@ -3,6 +3,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:herplus/core/utils/nav_utils.dart';
+import 'package:herplus/pages/merge/project_details.dart';
 
 
 class DataPrivacyPage extends StatefulWidget {
@@ -198,13 +200,17 @@ class _DataPrivacyPageState extends State<DataPrivacyPage> {
       decoration: _cardDecoration,
       child: Column(
         children: [
-          _ToggleRow(
-            iconAsset: 'assets/images/data_privacy/dp_icon_brain.png',
-            text: '更年期前期的 REM 睡眠图谱',
-            value: firstToggle,
-            showDivider: true,
-            onTap: () => setState(() => firstToggle = !firstToggle),
-          ),
+          GestureDetector(
+            onTap: () => NavUtils.push(ProjectDetailPage()),
+            child: _ToggleRow(
+              iconAsset: 'assets/images/data_privacy/dp_icon_brain.png',
+              text: '更年期前期的 REM 睡眠图谱',
+              value: firstToggle,
+              showDivider: true,
+              onTap: () => setState(() => firstToggle = !firstToggle),
+            ),
+          )
+          ,
           _ToggleRow(
             iconAsset: 'assets/images/data_privacy/dp_icon_drop.png',
             text: '月经周期与心脏健康',

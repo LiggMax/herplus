@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:herplus/core/utils/nav_utils.dart';
+import 'package:herplus/pages/temp_pages/base_data_page.dart';
 import 'package:herplus/pages/temp_pages/heart_error_page.dart';
+import 'package:herplus/pages/temp_pages/period_page.dart';
+import 'package:herplus/pages/temp_pages/power_detail_page.dart';
+import 'package:herplus/pages/temp_pages/sleep_detail_page.dart';
 import 'package:herplus/pages/temp_pages/stress_page.dart';
 
 class IndexPage extends StatelessWidget {
@@ -38,7 +42,6 @@ class IndexPage extends StatelessWidget {
             SizedBox(height: 22),
             buildDeviceCannection(),
             SizedBox(height: 107),
-
             Flex(
               direction: Axis.horizontal,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +72,6 @@ class IndexPage extends StatelessWidget {
                   flex: 1,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-
                     children: [buildSay(), buildSpecialday()],
                   ),
                 ),
@@ -116,7 +118,6 @@ class IndexPage extends StatelessWidget {
               Container(
                 width: 6,
                 height: 6,
-
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.green,
@@ -159,10 +160,10 @@ class IndexPage extends StatelessWidget {
 
   //MARK 心率
   buildHeart() {
-    return InkWell(
-      // onTap: () {
-      //   NavUtils.push(HeartErrorPage());
-      // },
+    return GestureDetector(
+      onTap: () {
+        NavUtils.push(BaseDataPage());
+      },
       child: Container(
         padding: EdgeInsets.all(16),
         height: 260,
@@ -243,186 +244,199 @@ class IndexPage extends StatelessWidget {
   }
 
   buildSleep() {
-    return Container(
-      padding: EdgeInsets.all(16),
-      height: 135,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/sleep.png'),
-          fit: BoxFit.fill,
+    return GestureDetector(
+      onTap: () => NavUtils.push(SleepDetailPage()),
+      child: Container(
+        padding: EdgeInsets.all(16),
+        height: 135,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/sleep.png'),
+            fit: BoxFit.fill,
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("睡梦空间", style: TextStyle(fontSize: 18, color: Colors.white)),
-          Text(
-            "最近你的睡眠状态不太好了",
-            style: TextStyle(fontSize: 10, color: Colors.white),
-          ),
-          SizedBox(height: 20),
-          Row(
-            children: [
-              Text.rich(
-                TextSpan(
-                  text: "5",
-                  style: TextStyle(fontSize: 22, color: Colors.white),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("睡梦空间", style: TextStyle(fontSize: 18, color: Colors.white)),
+            Text(
+              "最近你的睡眠状态不太好了",
+              style: TextStyle(fontSize: 10, color: Colors.white),
+            ),
+            SizedBox(height: 20),
+            Row(
+              children: [
+                Text.rich(
+                  TextSpan(
+                    text: "5",
+                    style: TextStyle(fontSize: 22, color: Colors.white),
+                  ),
                 ),
-              ),
-              Text.rich(
-                TextSpan(
-                  text: "小时",
-                  style: TextStyle(fontSize: 10, color: Colors.white),
+                Text.rich(
+                  TextSpan(
+                    text: "小时",
+                    style: TextStyle(fontSize: 10, color: Colors.white),
+                  ),
                 ),
-              ),
-              Text.rich(
-                TextSpan(
-                  text: "31",
-                  style: TextStyle(fontSize: 22, color: Colors.white),
+                Text.rich(
+                  TextSpan(
+                    text: "31",
+                    style: TextStyle(fontSize: 22, color: Colors.white),
+                  ),
                 ),
-              ),
-              Text.rich(
-                TextSpan(
-                  text: "分钟",
-                  style: TextStyle(fontSize: 10, color: Colors.white),
+                Text.rich(
+                  TextSpan(
+                    text: "分钟",
+                    style: TextStyle(fontSize: 10, color: Colors.white),
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 
   buildStress() {
-    return Container(
-      height: 180,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/stress.png'),
-          fit: BoxFit.fill,
+    return GestureDetector(
+      onTap: () {
+        NavUtils.push(StressPage());
+      },
+      child: Container(
+        height: 180,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/stress.png'),
+            fit: BoxFit.fill,
+          ),
         ),
-      ),
-      child: Stack(
-        alignment: AlignmentGeometry.bottomCenter,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 100),
-            child: Stack(
-              alignment: AlignmentGeometry.bottomCenter,
-              children: [
-                for (int i = 0; i < 25; i++)
-                  Transform.rotate(
-                    angle: (i - 12) * 7 * (3.1415926535 / 180),
-                    origin: const Offset(0, 100),
-                    child: Image.asset(
-                      i < 18
-                          ? "assets/images/clutter_1.png"
-                          : "assets/images/clutter.png",
-                      width: 30,
-                      height: 30,
-                    ),
-                  ),
-              ],
-            ),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Text(
-                "压力缓冲",
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(40),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+        child: Stack(
+          alignment: AlignmentGeometry.bottomCenter,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 100),
+              child: Stack(
+                alignment: AlignmentGeometry.bottomCenter,
                 children: [
-                  Text(
-                    "压力值76.5",
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                  Text(
-                    "慢下来花点时间和我进行呼吸练习吧",
-                    style: TextStyle(fontSize: 8, color: Colors.white),
-                  ),
+                  for (int i = 0; i < 25; i++)
+                    Transform.rotate(
+                      angle: (i - 12) * 7 * (3.1415926535 / 180),
+                      origin: const Offset(0, 100),
+                      child: Image.asset(
+                        i < 18
+                            ? "assets/images/clutter_1.png"
+                            : "assets/images/clutter.png",
+                        width: 30,
+                        height: 30,
+                      ),
+                    ),
                 ],
               ),
             ),
-          ),
-        ],
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  "压力缓冲",
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(40),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "压力值76.5",
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                    Text(
+                      "慢下来花点时间和我进行呼吸练习吧",
+                      style: TextStyle(fontSize: 8, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   buildThinking() {
-    return Container(
-      padding: EdgeInsets.all(20),
-      height: 230,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/thinking.png'),
-          fit: BoxFit.fill,
-        ),
-      ),
-      child: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return
+      GestureDetector(
+        onTap: () => NavUtils.push(PowerDetailPage()),
+        child: Container(
+          padding: EdgeInsets.all(20),
+          height: 230,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/thinking.png'),
+              fit: BoxFit.fill,
+            ),
+          ),
+          child: Stack(
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "冥想建议",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "冥想建议",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      Text(
+                        "开始今日冥想三分钟",
+                        style: TextStyle(color: Colors.white, fontSize: 10),
+                      ),
+                    ],
                   ),
                   Text(
-                    "开始今日冥想三分钟",
+                    "今日脑力消耗较大建议试听\n白噪音“雨打芭蕉”",
                     style: TextStyle(color: Colors.white, fontSize: 10),
                   ),
                 ],
               ),
-              Text(
-                "今日脑力消耗较大建议试听\n白噪音“雨打芭蕉”",
-                style: TextStyle(color: Colors.white, fontSize: 10),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SizedBox(
+                      width: 82,
+                      height: 82,
+                      child: CircularProgressIndicator(
+                        value: 0.7,
+                        backgroundColor: Colors.white.withAlpha(20),
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        strokeWidth: 10,
+                        strokeCap: StrokeCap.round,
+                      ),
+                    ),
+                    Text(
+                      "3min",
+                      style: TextStyle(color: Colors.white, fontSize: 10),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                SizedBox(
-                  width: 82,
-                  height: 82,
-                  child: CircularProgressIndicator(
-                    value: 0.7,
-                    backgroundColor: Colors.white.withAlpha(20),
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    strokeWidth: 10,
-                    strokeCap: StrokeCap.round,
-                  ),
-                ),
-                Text(
-                  "3min",
-                  style: TextStyle(color: Colors.white, fontSize: 10),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+        ),
+      )
+      ;
   }
 
   buildExpert() {
@@ -466,53 +480,57 @@ class IndexPage extends StatelessWidget {
   }
 
   buildSpecialday() {
-    return Container(
-      padding: EdgeInsets.all(16),
-      height: 140,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/specialday.png'),
-          fit: BoxFit.fill,
+    return
+      GestureDetector(onTap: () => NavUtils.push(PeriodPage()),
+        child: Container(
+          padding: EdgeInsets.all(16),
+          height: 140,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/specialday.png'),
+              fit: BoxFit.fill,
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("特殊日子", style: TextStyle(color: Colors.white, fontSize: 18)),
+              SizedBox(height: 5),
+              Text(
+                "当生理期前3天\n您通常会感到焦虑\n建议提前安排独处时间",
+                style: TextStyle(color: Colors.white, fontSize: 10),
+              ),
+              SizedBox(height: 15),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  return Stack(
+                    children: [
+                      Container(
+                        height: 6,
+                        width: constraints.maxWidth,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF979797),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      Container(
+                        height: 6,
+                        width: constraints.maxWidth * 0.7,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ],
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("特殊日子", style: TextStyle(color: Colors.white, fontSize: 18)),
-          SizedBox(height: 5),
-          Text(
-            "当生理期前3天\n您通常会感到焦虑\n建议提前安排独处时间",
-            style: TextStyle(color: Colors.white, fontSize: 10),
-          ),
-          SizedBox(height: 15),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              return Stack(
-                children: [
-                  Container(
-                    height: 6,
-                    width: constraints.maxWidth,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF979797),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  Container(
-                    height: 6,
-                    width: constraints.maxWidth * 0.7,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        ],
-      ),
-    );
+      )
+      ;
   }
 }
 

@@ -1,5 +1,7 @@
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/material.dart';
+import 'package:herplus/core/utils/nav_utils.dart';
+import 'package:herplus/goal_setting/goal_settings.dart';
 
 class PowerDetailPage extends StatelessWidget {
   const PowerDetailPage({super.key});
@@ -54,14 +56,12 @@ class PowerDetailPage extends StatelessWidget {
                       'assets/images/fake3_1.png',
                       height: 138,
                       fit: BoxFit.fitWidth,
-
                       width: MediaQuery.of(context).size.width,
                     ),
                     Image.asset(
                       'assets/images/fake3_2.png',
                       height: 210,
                       fit: BoxFit.fitWidth,
-
                       width: MediaQuery.of(context).size.width,
                     ),
                   ],
@@ -89,11 +89,15 @@ class PowerDetailPage extends StatelessWidget {
                         ),
                       ),
                       Spacer(),
-                      Image.asset(
+                      GestureDetector(
+                        onTap: () {
+                          NavUtils.push(GoalSettingsPage());
+                        },
+                          child: Image.asset(
                         'assets/images/setting.png',
                         width: 90,
                         height: 24,
-                      ),
+                      )),
                     ],
                   ),
                   SizedBox(height: 12),
@@ -101,7 +105,6 @@ class PowerDetailPage extends StatelessWidget {
                     'assets/images/fake3_3.png',
                     height: 137,
                     fit: BoxFit.fitWidth,
-
                     width: MediaQuery.of(context).size.width,
                   ),
                   Row(
@@ -119,7 +122,6 @@ class PowerDetailPage extends StatelessWidget {
                     'assets/images/fake3_4.png',
                     height: 220,
                     fit: BoxFit.fitWidth,
-
                     width: MediaQuery.of(context).size.width,
                   ),
                 ],

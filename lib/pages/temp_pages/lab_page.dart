@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:herplus/core/utils/nav_utils.dart';
+import 'package:herplus/her_plus_event_details/her_plus_event_details.dart';
 
 class LabPage extends StatelessWidget {
   const LabPage({super.key});
@@ -58,13 +60,19 @@ class LabPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: 10),
-                    Image.asset(
-                      'assets/images/fake6_2.png',
-                      height: 110,
-                      fit: BoxFit.fitWidth,
+                    GestureDetector(
+                      onTap: () {
+                        NavUtils.push(HerPlusEventDetailsPage());
+                      },
+                      child: Image.asset(
+                        'assets/images/fake6_2.png',
+                        height: 110,
+                        fit: BoxFit.fitWidth,
 
-                      width: MediaQuery.of(context).size.width,
-                    ),
+                        width: MediaQuery.of(context).size.width,
+                      ),
+                    )
+                    ,
                     Image.asset(
                       'assets/images/fake6_3.png',
                       height: 110,

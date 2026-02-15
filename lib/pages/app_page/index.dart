@@ -1,19 +1,19 @@
 
 import 'package:flutter/material.dart';
-import 'package:herplus/pages/app_page/project_details.dart';
-import 'package:herplus/pages/app_page/system_settings.dart';
+import 'package:herplus/pages/project_details/project_details.dart';
+import 'package:herplus/pages/system_settings/system_settings.dart';
 import 'package:herplus/pages/app_page/ui_page.dart';
 
 import 'ai_chat.dart';
-import 'algorithm_calibration.dart';
+import '../algorithm_calibration/algorithm_calibration.dart';
 import 'breathing_exercises.dart';
 import 'data_container.dart';
-import 'data_privacy.dart';
-import 'device_manager.dart';
-import 'expert_details.dart';
+import '../data_privacy/data_privacy.dart';
+import '../device_manager/device_manager.dart';
+import '../expert_details/expert_details.dart';
 import 'firmware_upgrade.dart';
-import 'goal_settings.dart';
-import 'her_plus_event_details.dart';
+import '../../goal_setting/goal_settings.dart';
+import '../../her_plus_event_details/her_plus_event_details.dart';
 
 class AppPage extends StatelessWidget {
   const AppPage({super.key});

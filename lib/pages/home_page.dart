@@ -237,7 +237,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.white,
               height: 40,
               width: 40,
-              child: Center(child: Text("跳转页面 1")),
+              child: Center(child: Text(" 1")),
             ),
           ),
           GestureDetector(

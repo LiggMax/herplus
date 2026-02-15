@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:herplus/core/utils/nav_utils.dart';
+import 'package:herplus/pages/expert_details/expert_details.dart';
 import 'package:herplus/pages/new/tabs.dart';
 
 class NewPage extends StatelessWidget {
@@ -116,96 +118,120 @@ class NewPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(width: 16),
-          Container(
-            margin: EdgeInsets.only(right: 8),
-            padding: EdgeInsets.all(20),
-            height: 181,
-            width: 127,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/expert_1.png"),
-                fit: BoxFit.fill,
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("名字", style: TextStyle(color: Colors.white, fontSize: 18)),
-                Text(
-                  "专业领域",
-                  style: TextStyle(color: Colors.white, fontSize: 12),
+          GestureDetector(
+            onTap: () {
+              NavUtils.push(ExpertDetailsPage());
+            },
+            child: Container(
+              margin: EdgeInsets.only(right: 8),
+              padding: EdgeInsets.all(20),
+              height: 181,
+              width: 127,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/expert_1.png"),
+                  fit: BoxFit.fill,
                 ),
-              ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("名字",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  Text(
+                    "专业领域",
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ],
+              ),
             ),
           ),
-          Container(
-            height: 181,
-            width: 127,
-            margin: EdgeInsets.only(right: 8),
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/expert_2.png"),
-                fit: BoxFit.fill,
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("名字", style: TextStyle(color: Colors.white, fontSize: 18)),
-                Text(
-                  "专业领域",
-                  style: TextStyle(color: Colors.white, fontSize: 12),
+          GestureDetector(
+            onTap: () {
+              NavUtils.push(ExpertDetailsPage());
+            },
+            child: Container(
+              height: 181,
+              width: 127,
+              margin: EdgeInsets.only(right: 8),
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/expert_2.png"),
+                  fit: BoxFit.fill,
                 ),
-              ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("名字",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  Text(
+                    "专业领域",
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ],
+              ),
             ),
           ),
-          Container(
-            height: 181,
-            width: 127,
-            margin: EdgeInsets.only(right: 8),
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/expert_2.png"),
-                fit: BoxFit.fill,
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("名字", style: TextStyle(color: Colors.white, fontSize: 18)),
-                Text(
-                  "专业领域",
-                  style: TextStyle(color: Colors.white, fontSize: 12),
+          GestureDetector(
+            onTap: () {
+              NavUtils.push(ExpertDetailsPage());
+            },
+            child: Container(
+              height: 181,
+              width: 127,
+              margin: EdgeInsets.only(right: 8),
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/expert_2.png"),
+                  fit: BoxFit.fill,
                 ),
-              ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("名字",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  Text(
+                    "专业领域",
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ],
+              ),
             ),
           ),
-          Container(
-            height: 181,
-            width: 127,
-            margin: EdgeInsets.only(right: 8),
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/expert_2.png"),
-                fit: BoxFit.fill,
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("名字", style: TextStyle(color: Colors.white, fontSize: 18)),
-                Text(
-                  "专业领域",
-                  style: TextStyle(color: Colors.white, fontSize: 12),
+          GestureDetector(
+            onTap: () {
+              NavUtils.push(ExpertDetailsPage());
+            },
+            child: Container(
+              height: 181,
+              width: 127,
+              margin: EdgeInsets.only(right: 8),
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/expert_2.png"),
+                  fit: BoxFit.fill,
                 ),
-              ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("名字",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  Text(
+                    "专业领域",
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:herplus/core/utils/nav_utils.dart';
 import 'package:herplus/pages/community/report/report_page.dart';
+import 'package:herplus/pages/temp_pages/lab_page.dart';
 
 class CommunityPage extends StatelessWidget {
   const CommunityPage({super.key});
@@ -121,7 +122,7 @@ class CommunityPage extends StatelessWidget {
   buildRevenue() {
     return GestureDetector(
       onTap: () {
-        NavUtils.push(ReportPage());
+        NavUtils.push(LabPage());
       },
       child: Container(
         padding: EdgeInsets.all(16),
