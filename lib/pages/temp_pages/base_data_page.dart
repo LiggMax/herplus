@@ -1,6 +1,7 @@
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'blood_oxygen_chart.dart';
 import 'heart_rate_chart_helper.dart';
 import 'heart_rate_graph.dart';
 
@@ -66,8 +67,8 @@ class _BaseDataPageState extends State<BaseDataPage> {
               // buildHeartRateLineChartCard(),
               HeartRateGraph(),
               SizedBox(height: 15),
-
-              buildNightLineChartCard(),
+              BloodOxygenChart()
+              // buildNightLineChartCard(),
             ],
           ),
         ),
