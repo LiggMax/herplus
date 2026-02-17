@@ -209,8 +209,7 @@ class _DataPrivacyPageState extends State<DataPrivacyPage> {
               showDivider: true,
               onTap: () => setState(() => firstToggle = !firstToggle),
             ),
-          )
-          ,
+          ),
           _ToggleRow(
             iconAsset: 'assets/images/data_privacy/dp_icon_drop.png',
             text: '月经周期与心脏健康',

@@ -2,6 +2,7 @@ import 'package:custom_sliding_segmented_control/custom_sliding_segmented_contro
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'heart_rate_chart_helper.dart';
+import 'heart_rate_graph.dart';
 
 class BaseDataPage extends StatefulWidget {
   const BaseDataPage({super.key});
@@ -62,7 +63,8 @@ class _BaseDataPageState extends State<BaseDataPage> {
               buildPannelGrids(),
               SizedBox(height: 15),
 
-              buildHeartRateLineChartCard(),
+              // buildHeartRateLineChartCard(),
+              HeartRateGraph(),
               SizedBox(height: 15),
 
               buildNightLineChartCard(),
