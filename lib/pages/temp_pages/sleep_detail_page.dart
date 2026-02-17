@@ -1,6 +1,7 @@
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/material.dart';
 import 'package:herplus/pages/temp_pages/chart/sleep_chart.dart';
+import 'package:herplus/pages/temp_pages/chart/sleep_donut_chart.dart';
 
 class SleepDetailPage extends StatelessWidget {
   const SleepDetailPage({super.key});
@@ -73,12 +74,14 @@ class SleepDetailPage extends StatelessWidget {
                     //   ],
                     // ),
                     SleepChart(),
-                    Image.asset(
-                      'assets/images/fake2.png',
-                      height: 230,
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.fitWidth,
-                    ),
+                    SizedBox(height: 8),
+                    SleepDonutChart(),
+                    // Image.asset(
+                    //   'assets/images/fake2.png',
+                    //   height: 230,
+                    //   width: MediaQuery.of(context).size.width,
+                    //   fit: BoxFit.fitWidth,
+                    // ),
                     Image.asset(
                       'assets/images/fake3.png',
                       height: 275,

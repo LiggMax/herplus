@@ -43,10 +43,14 @@ class _SleepChartState extends State<SleepChart> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 260,
+      height: 290,
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
+        border: Border.all(
+          width: 1,
+          color: Color(0xFFE5E5E5),
+        ),
         color: const Color(0x63FFFFFF),
         borderRadius: BorderRadius.circular(16),
         boxShadow: const [
