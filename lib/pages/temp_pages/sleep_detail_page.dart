@@ -1,5 +1,6 @@
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/material.dart';
+import 'package:herplus/pages/temp_pages/chart/sleep_chart.dart';
 
 class SleepDetailPage extends StatelessWidget {
   const SleepDetailPage({super.key});
@@ -51,26 +52,27 @@ class SleepDetailPage extends StatelessWidget {
                     ),
                     SizedBox(height: 15),
 
-                    Stack(
-                      children: [
-                        Image.asset(
-                          'assets/images/fake1.png',
-                          height: 340,
-                          fit: BoxFit.fitWidth,
-
-                          width: MediaQuery.of(context).size.width,
-                        ),
-                        Positioned(
-                          top: 42,
-                          left: -30,
-                          child: Image.asset(
-                            'assets/images/cloud.png',
-                            height: 116,
-                            width: MediaQuery.of(context).size.width,
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Stack(
+                    //   children: [
+                    //     Image.asset(
+                    //       'assets/images/fake1.png',
+                    //       height: 340,
+                    //       fit: BoxFit.fitWidth,
+                    //
+                    //       width: MediaQuery.of(context).size.width,
+                    //     ),
+                    //     Positioned(
+                    //       top: 42,
+                    //       left: -30,
+                    //       child: Image.asset(
+                    //         'assets/images/cloud.png',
+                    //         height: 116,
+                    //         width: MediaQuery.of(context).size.width,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    SleepChart(),
                     Image.asset(
                       'assets/images/fake2.png',
                       height: 230,

@@ -92,7 +92,7 @@ class _BloodOxygenChartState extends State<BloodOxygenChart> {
                   maxY: 100,
                   gridData: FlGridData(
                     show: true,
-                    drawVerticalLine: true,
+                    drawVerticalLine: false,
                     drawHorizontalLine: true,
                     verticalInterval: 6,
                     horizontalInterval: 10,

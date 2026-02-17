@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'heart_rate_chart_helper.dart';
+import '../heart_rate_chart_helper.dart';
 
 class HeartRateGraph extends StatefulWidget {
   const HeartRateGraph({super.key});

@@ -1,9 +1,9 @@
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'blood_oxygen_chart.dart';
+import 'chart/blood_oxygen_chart.dart';
 import 'heart_rate_chart_helper.dart';
-import 'heart_rate_graph.dart';
+import 'chart/heart_rate_chart.dart';
 
 class BaseDataPage extends StatefulWidget {
   const BaseDataPage({super.key});
