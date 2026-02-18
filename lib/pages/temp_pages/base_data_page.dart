@@ -66,9 +66,9 @@ class _BaseDataPageState extends State<BaseDataPage> {
 
               // buildHeartRateLineChartCard(),
               HeartRateGraph(),
+              // BaseDataPage(),
               SizedBox(height: 15),
-              BloodOxygenChart()
-              // buildNightLineChartCard(),
+              BloodOxygenChart(),
             ],
           ),
         ),

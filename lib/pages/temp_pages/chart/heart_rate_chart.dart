@@ -13,11 +13,11 @@ class _HeartRateGraphState extends State<HeartRateGraph> {
   // 生成24小时心率数据
   List<FlSpot> get _heartRateData {
     return [
-      FlSpot(0, 72),   // 00:00 - 70-75 bpm
+      FlSpot(0, 72), // 00:00 - 70-75 bpm
       FlSpot(1, 70),
       FlSpot(2, 65),
       FlSpot(3, 62),
-      FlSpot(4, 60),   // 04:00 - 最低值 60 bpm
+      FlSpot(4, 60), // 04:00 - 最低值 60 bpm
       FlSpot(5, 62),
       FlSpot(6, 65),
       FlSpot(7, 70),
@@ -121,13 +121,13 @@ class _HeartRateGraphState extends State<HeartRateGraph> {
                   final maxSpot = _maxSpot;
                   final minSpot = _minSpot;
 
-                  final maxPixelX =
-                      leftReserved + (maxSpot.x - minX) / (maxX - minX) * chartWidth;
+                  final maxPixelX = leftReserved +
+                      (maxSpot.x - minX) / (maxX - minX) * chartWidth;
                   final maxPixelY =
                       (1 - (maxSpot.y - minY) / (maxY - minY)) * chartHeight;
 
-                  final minPixelX =
-                      leftReserved + (minSpot.x - minX) / (maxX - minX) * chartWidth;
+                  final minPixelX = leftReserved +
+                      (minSpot.x - minX) / (maxX - minX) * chartWidth;
                   final minPixelY =
                       (1 - (minSpot.y - minY) / (maxY - minY)) * chartHeight;
 
@@ -247,6 +247,7 @@ class _HeartRateGraphState extends State<HeartRateGraph> {
                           value: maxSpot.y.toInt(),
                           hour: maxSpot.x.toInt(),
                           backgroundColor: const Color(0xFF6FA0E1),
+                          image: 'assets/images/hight.png',
                         ),
                       ),
                       // 最低点标签
@@ -257,6 +258,7 @@ class _HeartRateGraphState extends State<HeartRateGraph> {
                           value: minSpot.y.toInt(),
                           hour: minSpot.x.toInt(),
                           backgroundColor: const Color(0xFFF3BACE),
+                          image: 'assets/images/low.png',
                         ),
                       ),
                     ],
@@ -275,13 +277,17 @@ class _HeartRateGraphState extends State<HeartRateGraph> {
     required int value,
     required int hour,
     required Color backgroundColor,
+    required String image,
   }) {
     return Container(
       width: 39,
       height: 35,
       decoration: BoxDecoration(
-        color: backgroundColor,
         borderRadius: BorderRadius.circular(4),
+        image: DecorationImage(
+          image: AssetImage(image),
+          fit: BoxFit.fill,
+        ),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
