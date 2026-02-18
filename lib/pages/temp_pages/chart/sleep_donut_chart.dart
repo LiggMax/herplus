@@ -33,7 +33,7 @@ class _SleepDonutChartState extends State<SleepDonutChart> {
         children: [
           Row(
             children: [
-              Icon(Icons.bed, color: Color(0xff3845d9), size: 20),
+              Icon(Icons.bed, color: Color(0xff00a9fd), size: 20),
               const SizedBox(width: 6),
               const Text(
                 '睡眠质量环',

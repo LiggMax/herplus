@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:herplus/pages/temp_pages/chart/sleep_chart.dart';
 import 'package:herplus/pages/temp_pages/chart/sleep_donut_chart.dart';
 
+import 'breathing_and_recovery.dart';
+
 class SleepDetailPage extends StatelessWidget {
   const SleepDetailPage({super.key});
 
@@ -36,7 +38,7 @@ class SleepDetailPage extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+              padding: EdgeInsets.symmetric(horizontal: 16),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -76,18 +78,8 @@ class SleepDetailPage extends StatelessWidget {
                     SleepChart(),
                     SizedBox(height: 8),
                     SleepDonutChart(),
-                    // Image.asset(
-                    //   'assets/images/fake2.png',
-                    //   height: 230,
-                    //   width: MediaQuery.of(context).size.width,
-                    //   fit: BoxFit.fitWidth,
-                    // ),
-                    Image.asset(
-                      'assets/images/fake3.png',
-                      height: 275,
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.fitWidth,
-                    ),
+                    SizedBox(height: 8),
+                    BreathingAndRecovery()
                   ],
                 ),
               ),
