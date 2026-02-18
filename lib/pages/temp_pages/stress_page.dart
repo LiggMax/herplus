@@ -1,5 +1,9 @@
+import 'dart:ui';
+
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/material.dart';
+
+import 'chart/pressure_chart.dart';
 
 class StressPage extends StatelessWidget {
   const StressPage({super.key});
@@ -200,38 +204,45 @@ class StressPage extends StatelessWidget {
       child: Column(
         children: [
           Row(children: [Text("🤧 压力分析", style: TextStyle(fontSize: 16))]),
-
           Flex(
             direction: Axis.horizontal,
             children: [
               Expanded(
                 child: Container(
-                  height: 70,
-                  padding: EdgeInsets.symmetric(vertical: 12),
+                  padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/bg5.png'),
-                      fit: BoxFit.fitWidth,
+                    borderRadius: BorderRadius.circular(50),
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color(0xFFB2DFDB),
+                        Color(0xFFFFCCBC),
+                        Color(0xFFE1BEE7),
+                      ],
                     ),
                   ),
-
                   child: Row(
                     children: [
-                      SizedBox(width: 64),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.black.withValues(alpha: 0.3),
+                        ),
+                        child: Icon(Icons.content_paste_outlined,color: Colors.white),
+                      ),
+                      SizedBox(width: 5),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("今日平均压力"),
+                          Text("今日平均压力",style: TextStyle(fontSize: 12),),
                           Row(
                             children: [
-                              Text("42"),
+                              Text("42",style: TextStyle(fontWeight: FontWeight.bold)),
                               SizedBox(width: 2),
 
-                              Image.asset(
-                                "assets/images/label2.png",
-                                width: 40,
-                                height: 19,
-                              ),
+                              _GlassLabel(text: '偏低', textColor: const Color(0xFFE53935)),
                             ],
                           ),
                         ],
@@ -240,24 +251,54 @@ class StressPage extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(width: 10),
               Expanded(
                 child: Container(
-                  height: 70,
-                  padding: EdgeInsets.symmetric(vertical: 12),
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/bg6.png'),
-                      fit: BoxFit.fitWidth,
+                    borderRadius: BorderRadius.circular(35),
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color(0xFF9EC3F6),
+                        Color(0xFFF6CF6E),
+                        Color(0xFFDDCBEB),
+                      ],
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.06),
+                        offset: Offset(0, 2),
+                        blurRadius: 6,
+                      ),
+                    ],
                   ),
                   child: Row(
                     children: [
-                      SizedBox(width: 64),
+                      Container(
+                        width: 48,
+                        height: 46,
+                        decoration: BoxDecoration(
+                          color: Colors.black.withValues(alpha: 0.3),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        alignment: Alignment.center,
+                        child: Icon(Icons.monitor_heart_sharp, color: Colors.white, size: 22),
+                      ),
+                      SizedBox(width: 12),
                       Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("HRV"),
-                          Row(children: [Text("58"), Text("ms")]),
+                          Text("HRV", style: TextStyle(fontWeight: FontWeight.w300, fontSize: 12)),
+                          Row(
+                            children: [
+                              Text("58", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black87)),
+                              SizedBox(width: 2),
+                              Text("ms", style: TextStyle(fontSize: 13, color: Colors.black87)),
+                            ],
+                          ),
                         ],
                       ),
                     ],
@@ -267,12 +308,7 @@ class StressPage extends StatelessWidget {
             ],
           ),
           SizedBox(height: 12),
-          Image.asset(
-            'assets/images/fake_line.png',
-            height: 222,
-            width: double.infinity,
-          ),
-
+          FancyLineChart(),
           Row(children: [Text("📝 情绪气象记录", style: TextStyle(fontSize: 16))]),
           Image.asset(
             'assets/images/fake_line2.png',
@@ -280,6 +316,43 @@ class StressPage extends StatelessWidget {
             width: double.infinity,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _GlassLabel extends StatelessWidget {
+  final String text;
+  final Color textColor;
+
+  const _GlassLabel({required this.text, required this.textColor});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(50),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(50),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.3),
+              width: 1,
+            ),
+          ),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: textColor,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
       ),
     );
   }
