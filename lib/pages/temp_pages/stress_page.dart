@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/material.dart';
 
+import 'chart/emotional_weather_chart.dart';
 import 'chart/pressure_chart.dart';
 
 class StressPage extends StatelessWidget {
@@ -310,11 +311,7 @@ class StressPage extends StatelessWidget {
           SizedBox(height: 12),
           FancyLineChart(),
           Row(children: [Text("📝 情绪气象记录", style: TextStyle(fontSize: 16))]),
-          Image.asset(
-            'assets/images/fake_line2.png',
-            height: 222,
-            width: double.infinity,
-          ),
+          EmotionalWeatherChart(),
         ],
       ),
     );

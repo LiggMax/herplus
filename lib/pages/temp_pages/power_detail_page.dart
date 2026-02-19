@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:herplus/core/utils/nav_utils.dart';
 import 'package:herplus/goal_setting/goal_settings.dart';
 
+import 'chart/trend_chart.dart';
+
 class PowerDetailPage extends StatelessWidget {
   const PowerDetailPage({super.key});
 
@@ -37,16 +39,24 @@ class PowerDetailPage extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-              child: SingleChildScrollView(
-                child: Column(
+              child:  Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Row(
                       children: [
-                        Icon(
-                          Icons.arrow_back_ios_new_outlined,
-                          color: Colors.white,
+                        InkWell(
+                          onTap: () => NavUtils.pop(),
+                          child: Icon(
+                            Icons.arrow_back_ios_new_outlined,
+                            color: Colors.white,
+                          ),
                         ),
+                        // IconButton(
+                        //     onPressed: () => NavUtils.pop(),
+                        //     icon: Icon(
+                        //       Icons.arrow_back_ios_new_outlined,
+                        //       color: Colors.white,
+                        //     )),
                         SizedBox(width: 16),
                         buildTabs(context),
                       ],
@@ -64,9 +74,9 @@ class PowerDetailPage extends StatelessWidget {
                       fit: BoxFit.fitWidth,
                       width: MediaQuery.of(context).size.width,
                     ),
+                    // TrendChart()
                   ],
                 ),
-              ),
             ),
             Container(
               height: 472,
@@ -90,14 +100,14 @@ class PowerDetailPage extends StatelessWidget {
                       ),
                       Spacer(),
                       GestureDetector(
-                        onTap: () {
-                          NavUtils.push(GoalSettingsPage());
-                        },
+                          onTap: () {
+                            NavUtils.push(GoalSettingsPage());
+                          },
                           child: Image.asset(
-                        'assets/images/setting.png',
-                        width: 90,
-                        height: 24,
-                      )),
+                            'assets/images/setting.png',
+                            width: 90,
+                            height: 24,
+                          )),
                     ],
                   ),
                   SizedBox(height: 12),
