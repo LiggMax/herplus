@@ -72,6 +72,7 @@ flutter:
     - assets/images/goal_settings/
     - assets/images/tracking_intent/
     - assets/images/ai_chat/
+    - assets/images/bubble/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

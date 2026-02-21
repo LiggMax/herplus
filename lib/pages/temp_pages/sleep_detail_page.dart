@@ -1,5 +1,6 @@
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/material.dart';
+import 'package:herplus/core/utils/nav_utils.dart';
 import 'package:herplus/pages/temp_pages/chart/sleep_chart.dart';
 import 'package:herplus/pages/temp_pages/chart/sleep_donut_chart.dart';
 
@@ -45,9 +46,14 @@ class SleepDetailPage extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Icon(
-                          Icons.arrow_back_ios_new_outlined,
-                          color: Colors.white,
+                        InkWell(
+                          onTap: () {
+                            NavUtils.pop();
+                          },
+                          child: Icon(
+                            Icons.arrow_back_ios_new_outlined,
+                            color: Colors.white,
+                          ),
                         ),
                         SizedBox(width: 16),
                         buildTabs(context),
