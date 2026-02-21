@@ -241,24 +241,24 @@ class _HeartRateGraphState extends State<HeartRateGraph> {
                       ),
                       // 最高点标签
                       Positioned(
-                        left: maxPixelX - 39 / 2,
+                        left: maxPixelX - 45 / 2,
                         top: maxPixelY - 43,
                         child: _buildIndicator(
                           value: maxSpot.y.toInt(),
                           hour: maxSpot.x.toInt(),
                           backgroundColor: const Color(0xFF6FA0E1),
-                          image: 'assets/images/hight.png',
+                          image: 'assets/images/indicator.png',
                         ),
                       ),
                       // 最低点标签
                       Positioned(
-                        left: minPixelX - 39 / 2,
-                        top: minPixelY - 43,
+                        left: minPixelX - 45 / 2,
+                        top: minPixelY - 44,
                         child: _buildIndicator(
                           value: minSpot.y.toInt(),
                           hour: minSpot.x.toInt(),
                           backgroundColor: const Color(0xFFF3BACE),
-                          image: 'assets/images/low.png',
+                          image: 'assets/images/Rectangle.png',
                         ),
                       ),
                     ],
@@ -280,17 +280,16 @@ class _HeartRateGraphState extends State<HeartRateGraph> {
     required String image,
   }) {
     return Container(
-      width: 39,
-      height: 35,
+      width: 45,
+      height: 90,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
         image: DecorationImage(
           image: AssetImage(image),
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
         ),
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: 4),
           Text(
