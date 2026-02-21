@@ -52,9 +52,9 @@ class _SleepDonutChartState extends State<SleepDonutChart> {
                 Expanded(
                   child: SleepRingChart(segments: [
                     RingSegment(0.2, Color(0xff19b58a)),
-                    RingSegment(0.3, Color(0xff1bb5b3)),
+                    RingSegment(0.2, Color(0xff1bb5b3)),
                     RingSegment(0.3, Color(0xff3845d9)),
-                    RingSegment(0.2, Color(0xff7a3fd1)),
+                    RingSegment(0.3, Color(0xff7a3fd1)),
                   ]),
                 ),
                 Expanded(
@@ -68,7 +68,7 @@ class _SleepDonutChartState extends State<SleepDonutChart> {
                           color: Color(0xff19b58a),
                           title: 'Awake',
                           value: '20%',
-                          unit: '1.5h',
+                          unit: '2.3h',
                         ),
                         Data(
                           color: Color(0xff1bb5b3),
@@ -86,7 +86,7 @@ class _SleepDonutChartState extends State<SleepDonutChart> {
                           color: Color(0xff7a3fd1),
                           title: 'Deep',
                           value: '20%',
-                          unit: '1.5h',
+                          unit: '2.5h',
                         ),
                       ],
                     ),

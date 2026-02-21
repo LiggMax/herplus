@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 class _Emotion {
   final String name;
   final Color color;
-  final double baseY;     // 线条中心纵向位置（0=顶部, 1=底部）
-  final double phase;     // 正弦波相位
+  final double baseY; // 线条中心纵向位置（0=顶部, 1=底部）
+  final double phase; // 正弦波相位
   final double amplitude; // 正弦振幅（纵向）
-  final double basePct;   // 基础百分比（用于 tooltip）
+  final double basePct; // 基础百分比（用于 tooltip）
 
   const _Emotion({
     required this.name,
@@ -26,25 +26,66 @@ class _Emotion {
 
   /// 第 h 小时的百分比（整数）
   int pctAt(int h) {
-    final v = basePct * 100 * (1 + 0.12 * math.sin(2 * math.pi * h / 24 + phase + 0.8));
+    final v = basePct *
+        100 *
+        (1 + 0.12 * math.sin(2 * math.pi * h / 24 + phase + 0.8));
     return v.round().clamp(0, 100);
   }
 }
 
-// ── 数据 ──────────────────────────────────────────────────
+//  数据
 const _emotions = [
-  _Emotion(name: '平静', color: Color(0xFF9B59B6), baseY: 0.11, phase: 0.5,  basePct: 0.40),
-  _Emotion(name: '愉悦', color: Color(0xFFE53935), baseY: 0.25, phase: 1.8,  basePct: 0.28),
-  _Emotion(name: '惊奇', color: Color(0xFF64B5F6), baseY: 0.39, phase: 0.3,  basePct: 0.10, amplitude: 0.025),
-  _Emotion(name: '厌恶', color: Color(0xFF66BB6A), baseY: 0.52, phase: 2.2,  basePct: 0.04, amplitude: 0.022),
-  _Emotion(name: '悲伤', color: Color(0xFF1E88E5), baseY: 0.64, phase: 1.0,  basePct: 0.04, amplitude: 0.022),
-  _Emotion(name: '愤怒', color: Color(0xFFFF7043), baseY: 0.76, phase: 2.8,  basePct: 0.02, amplitude: 0.018),
-  _Emotion(name: '恐惧', color: Color(0xFFFFD740), baseY: 0.88, phase: 0.9,  basePct: 0.01, amplitude: 0.014),
+  _Emotion(
+      name: '平静',
+      color: Color(0xFF9B59B6),
+      baseY: 0.11,
+      phase: 0.5,
+      basePct: 0.40),
+  _Emotion(
+      name: '愉悦',
+      color: Color(0xFFE53935),
+      baseY: 0.25,
+      phase: 1.8,
+      basePct: 0.28),
+  _Emotion(
+      name: '惊奇',
+      color: Color(0xFF64B5F6),
+      baseY: 0.39,
+      phase: 0.3,
+      basePct: 0.10,
+      amplitude: 0.025),
+  _Emotion(
+      name: '厌恶',
+      color: Color(0xFF66BB6A),
+      baseY: 0.52,
+      phase: 2.2,
+      basePct: 0.04,
+      amplitude: 0.022),
+  _Emotion(
+      name: '悲伤',
+      color: Color(0xFF1E88E5),
+      baseY: 0.64,
+      phase: 1.0,
+      basePct: 0.04,
+      amplitude: 0.022),
+  _Emotion(
+      name: '愤怒',
+      color: Color(0xFFFF7043),
+      baseY: 0.76,
+      phase: 2.8,
+      basePct: 0.02,
+      amplitude: 0.018),
+  _Emotion(
+      name: '恐惧',
+      color: Color(0xFFFFD740),
+      baseY: 0.88,
+      phase: 0.9,
+      basePct: 0.01,
+      amplitude: 0.014),
 ];
 
 const _xLabels = ['00:00', '06:00', '12:00', '18:00', '24:00'];
 
-// ── Widget ────────────────────────────────────────────────
 class EmotionalWeatherChart extends StatefulWidget {
   const EmotionalWeatherChart({super.key});
 
@@ -91,9 +132,11 @@ class _EmotionalWeatherChartState extends State<EmotionalWeatherChart> {
               builder: (ctx, cs) => GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTapDown: (d) => setState(
-                  () => _tapX = (d.localPosition.dx / cs.maxWidth).clamp(0.0, 1.0),
+                  () => _tapX =
+                      (d.localPosition.dx / cs.maxWidth).clamp(0.0, 1.0),
                 ),
                 child: Stack(
+                  clipBehavior: Clip.none,
                   children: [
                     CustomPaint(
                       size: Size(cs.maxWidth, cs.maxHeight),
@@ -135,7 +178,7 @@ class _EmotionalWeatherChartState extends State<EmotionalWeatherChart> {
                           width: 8,
                           height: 8,
                           decoration: BoxDecoration(
-                            border: Border.all(width: 2,color: e.color),
+                            border: Border.all(width: 2, color: e.color),
                             shape: BoxShape.circle,
                           ),
                         ),
@@ -158,15 +201,15 @@ class _EmotionalWeatherChartState extends State<EmotionalWeatherChart> {
     );
   }
 
-  // ── Tooltip ──────────────────────────────────────────────
+  // 工具提示
   Widget _buildTooltip(BoxConstraints cs) {
     final hour = _selectedHour;
     final timeStr = '${hour.toString().padLeft(2, '0')}:00';
-    const w = 155.0;
+    const w = 120.0;
     final tapPx = (_tapX ?? 0) * cs.maxWidth;
 
-    double left = tapPx + 14;
-    if (left + w > cs.maxWidth) left = tapPx - w - 14;
+    double left = tapPx + 10;
+    if (left + w > cs.maxWidth) left = tapPx - w - 13;
     left = left.clamp(0, cs.maxWidth - w);
 
     return Positioned(
@@ -176,9 +219,10 @@ class _EmotionalWeatherChartState extends State<EmotionalWeatherChart> {
         width: w,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
-          color: const Color(0xFF5A4E48).withOpacity(0.92),
+          color: Colors.grey.withValues(alpha: 0.7),
           borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: Colors.white.withOpacity(0.18)),
+          border:
+              Border.all(width: 1.5, color: Colors.white.withValues(alpha: 0.6)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.3),
@@ -189,27 +233,24 @@ class _EmotionalWeatherChartState extends State<EmotionalWeatherChart> {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               timeStr,
               style: const TextStyle(
                 color: Colors.white,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w400,
                 fontSize: 13,
               ),
             ),
-            const SizedBox(height: 7),
             ..._emotions.map(
-              (e) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2.5),
-                child: Row(
+              (e) =>  Row(
                   children: [
                     Container(
                       width: 9,
                       height: 9,
-                      decoration:
-                          BoxDecoration(color: e.color, shape: BoxShape.circle),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(width: 2, color: e.color)),
                     ),
                     const SizedBox(width: 7),
                     Expanded(
@@ -217,7 +258,7 @@ class _EmotionalWeatherChartState extends State<EmotionalWeatherChart> {
                         e.name,
                         style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 12,
+                          fontSize: 10,
                         ),
                       ),
                     ),
@@ -231,7 +272,6 @@ class _EmotionalWeatherChartState extends State<EmotionalWeatherChart> {
                     ),
                   ],
                 ),
-              ),
             ),
           ],
         ),
@@ -266,14 +306,15 @@ class _ChartPainter extends CustomPainter {
       final hour = (tapX! * 24).round().clamp(0, 24);
       for (final e in _emotions) {
         final y = e.yAt(hour) * size.height;
-        canvas.drawCircle(Offset(x, y), 5.5, Paint()..color = Colors.white.withOpacity(0.9));
+        canvas.drawCircle(
+            Offset(x, y), 5.5, Paint()..color = Colors.white.withOpacity(0.9));
         canvas.drawCircle(Offset(x, y), 3.8, Paint()..color = e.color);
       }
     }
   }
 
-  List<Offset> _pts(Size size, _Emotion e) =>
-      List.generate(25, (h) => Offset(h / 24 * size.width, e.yAt(h) * size.height));
+  List<Offset> _pts(Size size, _Emotion e) => List.generate(
+      25, (h) => Offset(h / 24 * size.width, e.yAt(h) * size.height));
 
   void _drawFill(Canvas canvas, Size size, _Emotion e) {
     final pts = _pts(size, e);
@@ -345,8 +386,10 @@ class _ChartPainter extends CustomPainter {
       final p2 = pts[i + 1];
       final p3 = pts[i < pts.length - 2 ? i + 2 : i + 1];
 
-      final cp1 = Offset(p1.dx + (p2.dx - p0.dx) / 6, p1.dy + (p2.dy - p0.dy) / 6);
-      final cp2 = Offset(p2.dx - (p3.dx - p1.dx) / 6, p2.dy - (p3.dy - p1.dy) / 6);
+      final cp1 =
+          Offset(p1.dx + (p2.dx - p0.dx) / 6, p1.dy + (p2.dy - p0.dy) / 6);
+      final cp2 =
+          Offset(p2.dx - (p3.dx - p1.dx) / 6, p2.dy - (p3.dy - p1.dy) / 6);
 
       path.cubicTo(cp1.dx, cp1.dy, cp2.dx, cp2.dy, p2.dx, p2.dy);
     }

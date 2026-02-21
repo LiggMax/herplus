@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/material.dart';
+import 'package:herplus/core/utils/nav_utils.dart';
 
 import 'chart/emotional_weather_chart.dart';
 import 'chart/pressure_chart.dart';
@@ -46,18 +47,21 @@ class StressPage extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Icon(
-                          Icons.arrow_back_ios_new_outlined,
-                          color: Colors.white,
+                        InkWell(
+                          onTap: () {
+                            NavUtils.pop();
+                          },
+                          child: Icon(
+                            Icons.arrow_back_ios_new_outlined,
+                            color: Colors.white,
+                          ),
                         ),
                         SizedBox(width: 16),
                         buildTabs(context),
                       ],
                     ),
                     SizedBox(height: 15),
-
                     buildPannelGrids(),
-
                     SizedBox(height: 20),
                   ],
                 ),
@@ -144,7 +148,6 @@ class StressPage extends StatelessWidget {
               ),
             ),
             SizedBox(width: 12),
-
             Expanded(
               child: buildPannelGridItem(
                 bgImage: 'assets/images/tem_bg.png',
@@ -194,12 +197,17 @@ class StressPage extends StatelessWidget {
 
   buildLineChart() {
     return Container(
+      alignment: Alignment.bottomCenter,
       height: 700,
-      padding: EdgeInsets.symmetric(vertical: 22.5, horizontal: 16),
+      padding: EdgeInsets.only(top: 15, left: 15, right: 15),
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/list_bg.png'),
-          fit: BoxFit.fitWidth,
+        color: Color(0xFFBCBCB8),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+        border: Border(
+          top: BorderSide(color: Colors.white, width: 1),
         ),
       ),
       child: Column(
@@ -210,7 +218,7 @@ class StressPage extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     gradient: const LinearGradient(
@@ -226,24 +234,32 @@ class StressPage extends StatelessWidget {
                   child: Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           color: Colors.black.withValues(alpha: 0.3),
                         ),
-                        child: Icon(Icons.content_paste_outlined,color: Colors.white),
+                        child: Icon(Icons.content_paste_outlined,
+                            color: Colors.white),
                       ),
                       SizedBox(width: 5),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("今日平均压力",style: TextStyle(fontSize: 12),),
+                          Text(
+                            "今日平均压力",
+                            style: TextStyle(fontSize: 12),
+                          ),
                           Row(
                             children: [
-                              Text("42",style: TextStyle(fontWeight: FontWeight.bold)),
+                              Text("42",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
                               SizedBox(width: 2),
-
-                              _GlassLabel(text: '偏低', textColor: const Color(0xFFE53935)),
+                              _GlassLabel(
+                                  text: '偏低',
+                                  textColor: const Color(0xFFE53935)),
                             ],
                           ),
                         ],
@@ -285,19 +301,28 @@ class StressPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         alignment: Alignment.center,
-                        child: Icon(Icons.monitor_heart_sharp, color: Colors.white, size: 22),
+                        child: Icon(Icons.monitor_heart_sharp,
+                            color: Colors.white, size: 22),
                       ),
                       SizedBox(width: 12),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("HRV", style: TextStyle(fontWeight: FontWeight.w300, fontSize: 12)),
+                          Text("HRV",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w300, fontSize: 12)),
                           Row(
                             children: [
-                              Text("58", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black87)),
+                              Text("58",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Colors.black87)),
                               SizedBox(width: 2),
-                              Text("ms", style: TextStyle(fontSize: 13, color: Colors.black87)),
+                              Text("ms",
+                                  style: TextStyle(
+                                      fontSize: 13, color: Colors.black87)),
                             ],
                           ),
                         ],
