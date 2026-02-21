@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:herplus/core/utils/nav_utils.dart';
 import 'package:herplus/goal_setting/goal_settings.dart';
 
+import 'chart/activity_chart.dart';
+import 'chart/intensity_distribution_chart.dart';
 import 'chart/trend_chart.dart';
 
 class PowerDetailPage extends StatelessWidget {
@@ -39,54 +41,52 @@ class PowerDetailPage extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-              child:  Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        InkWell(
-                          onTap: () => NavUtils.pop(),
-                          child: Icon(
-                            Icons.arrow_back_ios_new_outlined,
-                            color: Colors.white,
-                          ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () => NavUtils.pop(),
+                        child: Icon(
+                          Icons.arrow_back_ios_new_outlined,
+                          color: Colors.white,
                         ),
-                        // IconButton(
-                        //     onPressed: () => NavUtils.pop(),
-                        //     icon: Icon(
-                        //       Icons.arrow_back_ios_new_outlined,
-                        //       color: Colors.white,
-                        //     )),
-                        SizedBox(width: 16),
-                        buildTabs(context),
-                      ],
-                    ),
-                    SizedBox(height: 15),
-                    Image.asset(
-                      'assets/images/fake3_1.png',
-                      height: 138,
-                      fit: BoxFit.fitWidth,
-                      width: MediaQuery.of(context).size.width,
-                    ),
-                    Image.asset(
-                      'assets/images/fake3_2.png',
-                      height: 210,
-                      fit: BoxFit.fitWidth,
-                      width: MediaQuery.of(context).size.width,
-                    ),
-                    // TrendChart()
-                  ],
-                ),
-            ),
-            Container(
-              height: 472,
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/list_bg4.png'),
-                  fit: BoxFit.fitWidth,
-                ),
+                      ),
+                      // IconButton(
+                      //     onPressed: () => NavUtils.pop(),
+                      //     icon: Icon(
+                      //       Icons.arrow_back_ios_new_outlined,
+                      //       color: Colors.white,
+                      //     )),
+                      SizedBox(width: 16),
+                      buildTabs(context),
+                    ],
+                  ),
+                  SizedBox(height: 15),
+                  Image.asset(
+                    'assets/images/fake3_1.png',
+                    height: 138,
+                    fit: BoxFit.fitWidth,
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                  TrendChart()
+                ],
               ),
+            ),
+            const SizedBox(height: 16),
+            Container(
+              padding: EdgeInsets.only(
+                  top: 16,
+                  left: 15,
+                  right: 15,
+                  bottom: MediaQuery.of(context).viewPadding.bottom),
+              decoration: BoxDecoration(
+                  color: Color(0xFFC7C6C0),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20)),
+                  border: Border(top: BorderSide(color: Colors.white))),
               child: Column(
                 children: [
                   Row(
@@ -100,23 +100,40 @@ class PowerDetailPage extends StatelessWidget {
                       ),
                       Spacer(),
                       GestureDetector(
-                          onTap: () {
-                            NavUtils.push(GoalSettingsPage());
-                          },
-                          child: Image.asset(
-                            'assets/images/setting.png',
-                            width: 90,
-                            height: 24,
-                          )),
+                        onTap: () {
+                          NavUtils.push(GoalSettingsPage());
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(
+                              left: 5, right: 8, top: 2, bottom: 2),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color(0xFF6A88B4),
+                                  Color(0xFF50A9A6),
+                                ],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              )),
+                          child: Row(
+                            children: [
+                              Icon(Icons.add, color: Colors.white, size: 17),
+                              Text(
+                                "添加目标",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(height: 12),
-                  Image.asset(
-                    'assets/images/fake3_3.png',
-                    height: 137,
-                    fit: BoxFit.fitWidth,
-                    width: MediaQuery.of(context).size.width,
-                  ),
+                  ActivityChart(),
                   Row(
                     children: [
                       Text(
@@ -128,6 +145,7 @@ class PowerDetailPage extends StatelessWidget {
                       ),
                     ],
                   ),
+                  IntensityDistributionChart(),
                   Image.asset(
                     'assets/images/fake3_4.png',
                     height: 220,

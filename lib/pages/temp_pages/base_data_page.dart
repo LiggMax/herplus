@@ -1,6 +1,7 @@
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:herplus/core/utils/nav_utils.dart';
 import 'breathing_and_recovery.dart';
 import 'chart/blood_oxygen_chart.dart';
 import 'heart_rate_chart_helper.dart';
@@ -15,6 +16,7 @@ class BaseDataPage extends StatefulWidget {
 
 class _BaseDataPageState extends State<BaseDataPage> {
   late PageController pageController;
+
   @override
   void initState() {
     super.initState();
@@ -52,11 +54,14 @@ class _BaseDataPageState extends State<BaseDataPage> {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-
             children: [
               Row(
                 children: [
-                  Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white),
+                  InkWell(
+                    onTap: () => NavUtils.pop(),
+                    child: Icon(Icons.arrow_back_ios_new_outlined,
+                        color: Colors.white),
+                  ),
                   SizedBox(width: 16),
                   buildTabs(context),
                 ],
@@ -271,14 +276,12 @@ class _BaseDataPageState extends State<BaseDataPage> {
                   final chartWidth = constraints.maxWidth - leftReserved;
                   final chartHeight = constraints.maxHeight - bottomReserved;
 
-                  final maxPixelX =
-                      leftReserved +
+                  final maxPixelX = leftReserved +
                       (maxSpot.x - minX) / (maxX - minX) * chartWidth;
                   final maxPixelY =
                       (1 - (maxSpot.y - minY) / (maxY - minY)) * chartHeight;
 
-                  final minPixelX =
-                      leftReserved +
+                  final minPixelX = leftReserved +
                       (minSpot.x - minX) / (maxX - minX) * chartWidth;
                   final minPixelY =
                       (1 - (minSpot.y - minY) / (maxY - minY)) * chartHeight;

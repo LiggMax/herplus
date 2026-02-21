@@ -1,17 +1,6 @@
-import 'dart:math' as math;
-
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-// ── 7 日趋势数据 ───────────────────────────────────────────
-const _xLabels = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
-
-/// 每日数值 (0–100)，周五=48 用于提示框「均值48」
-const _values = [55.0, 25.0, 85.0, 30.0, 48.0, 70.0, 40.0];
-
-double get _average =>
-    _values.reduce((a, b) => a + b) / _values.length;
-
-// ── Widget ────────────────────────────────────────────────
 class TrendChart extends StatefulWidget {
   const TrendChart({super.key});
 
@@ -20,310 +9,271 @@ class TrendChart extends StatefulWidget {
 }
 
 class _TrendChartState extends State<TrendChart> {
-  /// 高亮显示的日索引，4 = 周五
-  static const int _highlightIndex = 4;
+  static const _weekDays = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+
+  // 7 日趋势数据 (周一至周日)
+  List<FlSpot> get _trendData {
+    return [
+      const FlSpot(0, 35),
+      const FlSpot(1, 55),
+      const FlSpot(2, 42),
+      const FlSpot(3, 68),
+      const FlSpot(4, 48), // 周五，均值 48
+      const FlSpot(5, 72),
+      const FlSpot(6, 88),
+    ];
+  }
+
+  static const _meanValue = 50.0;
+  int _selectedSpotIndex = 4; // 默认选中周五
+
+  LineChartBarData _buildLineBarData() {
+    return LineChartBarData(
+      spots: _trendData,
+      isCurved: true,
+      preventCurveOverShooting: true,
+      color: const Color(0xFF3848FD),
+      barWidth: 2,
+      isStrokeCapRound: true,
+      dotData: FlDotData(
+        show: true,
+        checkToShowDot: (spot, barData) => false,
+        getDotPainter: (spot, percent, barData, index) =>
+            FlDotCirclePainter(radius: 4, color: Colors.transparent),
+      ),
+      belowBarData: BarAreaData(
+        show: true,
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            const Color(0xFF6FA0E1).withValues(alpha: 0.35),
+            const Color(0xFF6FA0E1).withValues(alpha: 0.15),
+            const Color(0xFF4A6B8A).withValues(alpha: 0.08),
+            Colors.transparent,
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 200,
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(16, 16, 12, 12),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(30),
         gradient: const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF6C605C),
-            Color(0xFF5C5752),
-            Color(0xFF556056),
-          ],
+          colors: [Color(0xFF3B2C2C), Color(0xFF4F5D4D)],
         ),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 25,
-            color: Colors.black.withValues(alpha: 0.25),
-            offset: const Offset(0, 10),
-          ),
-        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 标题
           const Text(
             '7日趋势',
             style: TextStyle(
               color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
             ),
           ),
-          const SizedBox(height: 12),
-          // 图表 + Y 轴标签
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Y 轴刻度（与图表 140 高对齐）
-              SizedBox(
-                height: 140,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: ['100', '75', '50', '25', '0']
-                      .map((t) => Text(
-                            t,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 11,
+          const SizedBox(height: 16),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  const leftReserved = 35.0;
+                  const bottomReserved = 30.0;
+                  const double minX = 0, maxX = 6, minY = 0, maxY = 100;
+
+                  final chartWidth = constraints.maxWidth - leftReserved;
+                  final chartHeight = constraints.maxHeight - bottomReserved;
+
+                  final lineBarData = _buildLineBarData();
+                  final idx = _selectedSpotIndex.clamp(
+                    0,
+                    lineBarData.spots.length - 1,
+                  );
+                  final spot = lineBarData.spots[idx];
+
+                  final spotPixelX = leftReserved +
+                      (spot.x - minX) / (maxX - minX) * chartWidth;
+                  final spotPixelY =
+                      (1 - (spot.y - minY) / (maxY - minY)) * chartHeight;
+
+                  const bubbleW = 60.0;
+                  const bubbleH = 50.0;
+
+                  return Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      LineChart(
+                        LineChartData(
+                          minX: minX,
+                          maxX: maxX,
+                          minY: minY,
+                          maxY: maxY,
+                          gridData: FlGridData(
+                            show: true,
+                            drawVerticalLine: false,
+                            drawHorizontalLine: true,
+                            horizontalInterval: 25,
+                            getDrawingHorizontalLine: (value) {
+                              return FlLine(
+                                color: Colors.white.withOpacity(0.1),
+                                strokeWidth: 1,
+                              );
+                            },
+                          ),
+                          titlesData: FlTitlesData(
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: leftReserved,
+                                interval: 25,
+                                getTitlesWidget: (value, meta) {
+                                  return Text(
+                                    value.toInt().toString(),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 11,
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
-                          ))
-                      .toList(),
-                ),
-              ),
-              const SizedBox(width: 8),
-              // 图表绘制区
-              Expanded(
-                child: LayoutBuilder(
-                  builder: (ctx, cs) {
-                    const chartHeight = 140.0;
-                    final chartWidth = cs.maxWidth;
-                    return SizedBox(
-                      height: chartHeight + 22,
-                      child: Stack(
-                        children: [
-                          CustomPaint(
-                            size: Size(chartWidth, chartHeight),
-                            painter: _TrendChartPainter(
-                              values: _values,
-                              average: _average,
-                              highlightIndex: _highlightIndex,
+                            rightTitles: const AxisTitles(
+                              sideTitles: SideTitles(showTitles: false),
+                            ),
+                            topTitles: const AxisTitles(
+                              sideTitles: SideTitles(showTitles: false),
+                            ),
+                            bottomTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: bottomReserved,
+                                interval: 1,
+                                getTitlesWidget: (value, meta) {
+                                  final i = value.toInt();
+                                  if (i >= 0 && i < _weekDays.length) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(top: 8),
+                                      child: Text(
+                                        _weekDays[i],
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 10,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  return const SizedBox.shrink();
+                                },
+                              ),
                             ),
                           ),
-                          // 周五提示框：均值48
-                          Positioned(
-                            left: _tooltipLeft(chartWidth),
-                            top: _tooltipTop(chartHeight),
-                            child: _buildTooltip(),
+                          borderData: FlBorderData(show: false),
+                          extraLinesData: ExtraLinesData(
+                            horizontalLines: [
+                              HorizontalLine(
+                                y: _meanValue,
+                                color: const Color(0xFF3AD5FD)
+                                    .withValues(alpha: 0.8),
+                                strokeWidth: 1.1,
+                                dashArray: [3, 3],
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-          // X 轴标签
-          Padding(
-            padding: const EdgeInsets.only(left: 24, top: 4),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: _xLabels
-                  .map((l) => Text(
-                        l,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 11,
+                          lineBarsData: [lineBarData],
+                          lineTouchData: LineTouchData(
+                            enabled: true,
+                            handleBuiltInTouches: false,
+                            touchCallback: (event, response) {
+                              if (response != null &&
+                                  response.lineBarSpots != null &&
+                                  response.lineBarSpots!.isNotEmpty) {
+                                final touched = response.lineBarSpots!.first;
+                                setState(() {
+                                  _selectedSpotIndex = touched.spotIndex;
+                                });
+                              }
+                            },
+                            getTouchedSpotIndicator: (LineChartBarData barData,
+                                List<int> spotIndexes) {
+                              return spotIndexes.map((index) {
+                                return TouchedSpotIndicatorData(
+                                  FlLine(
+                                      color: Colors.transparent,
+                                      strokeWidth: 0),
+                                  FlDotData(show: false),
+                                );
+                              }).toList();
+                            },
+                          ),
                         ),
-                      ))
-                  .toList(),
+                        duration: const Duration(milliseconds: 150),
+                      ),
+                      // 选中点白色圆点
+                      Positioned(
+                        left: spotPixelX - 5,
+                        top: spotPixelY - 5,
+                        child: IgnorePointer(
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  width: 2, color: const Color(0xFF6FA0E1)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      // 气泡标签
+                      Positioned(
+                        left: spotPixelX - 70 / 2,
+                        top: spotPixelY - bubbleH + 5,
+                        child: IgnorePointer(
+                          child: Container(
+                            padding: const EdgeInsets.only(top: 5),
+                            width: bubbleW + 10,
+                            height: bubbleH,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                alignment: Alignment.topCenter,
+                                image: AssetImage(
+                                    'assets/images/bubble/blue_bubble.png'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            alignment: Alignment.topCenter,
+                            child: Text(
+                              '均值 ${spot.y.toInt()}',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 9,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ],
       ),
     );
   }
-
-  double _tooltipLeft(double chartWidth) {
-    const total = 7;
-    final step = chartWidth / (total - 1);
-    final x = _highlightIndex * step;
-    const w = 72.0;
-    double left = x - w / 2;
-    if (left < 0) left = 0;
-    if (left + w > chartWidth) left = chartWidth - w;
-    return left;
-  }
-
-  double _tooltipTop(double chartHeight) {
-    const yMin = 0.0, yMax = 100.0;
-    final v = _values[_highlightIndex];
-    final t = (v - yMin) / (yMax - yMin);
-    final y = chartHeight * (1 - t);
-    return y - 36;
-  }
-
-  Widget _buildTooltip() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          decoration: BoxDecoration(
-            color: const Color(0xFF7A9FFB).withValues(alpha: 0.95),
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.2),
-                blurRadius: 8,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: const Text(
-            '均值48',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-        CustomPaint(
-          size: const Size(14, 8),
-          painter: _TooltipArrowPainter(),
-        ),
-      ],
-    );
-  }
-}
-
-// ── 提示框下方小三角 ───────────────────────────────────────
-class _TooltipArrowPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final path = Path()
-      ..moveTo(size.width / 2, size.height)
-      ..lineTo(0, 0)
-      ..lineTo(size.width, 0)
-      ..close();
-    canvas.drawPath(
-      path,
-      Paint()..color = const Color(0xFF7A9FFB).withValues(alpha: 0.95),
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-// ── 趋势图 CustomPainter ───────────────────────────────────
-class _TrendChartPainter extends CustomPainter {
-  final List<double> values;
-  final double average;
-  final int highlightIndex;
-
-  const _TrendChartPainter({
-    required this.values,
-    required this.average,
-    required this.highlightIndex,
-  });
-
-  static const _yMin = 0.0;
-  static const _yMax = 100.0;
-  static const _lineColor = Color(0xFF4C7AFB);
-  static const _avgLineColor = Color(0xFFA5E3DE);
-  static const _fillGradientStart = Color(0xFF2A4A5A);
-  static const _fillGradientEnd = Color(0xFF5B9BD5);
-  static const _highlightStroke = Color(0xFF6CC7F0);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final pts = _points(size);
-    final path = _smoothPath(pts);
-
-    // 1. 曲线下方渐变填充
-    final fillPath = Path.from(path)
-      ..lineTo(size.width, size.height)
-      ..lineTo(0, size.height)
-      ..close();
-    final fillRect = Rect.fromLTWH(0, 0, size.width, size.height);
-    canvas.drawPath(
-      fillPath,
-      Paint()
-        ..shader = LinearGradient(
-          begin: Alignment.bottomCenter,
-          end: Alignment.topCenter,
-          colors: [_fillGradientStart, _fillGradientEnd.withValues(alpha: 0.6)],
-        ).createShader(fillRect),
-    );
-
-    // 2. 平均值水平虚线
-    final avgT = (average - _yMin) / (_yMax - _yMin);
-    final avgY = size.height * (1 - avgT);
-    _drawDashedHorizontalLine(canvas, avgY, size.width);
-
-    // 3. 主趋势线
-    canvas.drawPath(
-      path,
-      Paint()
-        ..color = _lineColor
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2.5
-        ..strokeCap = StrokeCap.round
-        ..strokeJoin = StrokeJoin.round
-        ..isAntiAlias = true,
-    );
-
-    // 4. 高亮数据点（周五）：白心 + 浅蓝描边
-    if (highlightIndex >= 0 && highlightIndex < pts.length) {
-      final p = pts[highlightIndex];
-      canvas.drawCircle(p, 7, Paint()..color = _highlightStroke);
-      canvas.drawCircle(p, 5, Paint()..color = Colors.white);
-    }
-  }
-
-  List<Offset> _points(Size size) {
-    final w = size.width;
-    final h = size.height;
-    final n = values.length;
-    final step = n > 1 ? w / (n - 1) : 0.0;
-    return List.generate(n, (i) {
-      final t = (values[i] - _yMin) / (_yMax - _yMin);
-      final y = h * (1 - t.clamp(0.0, 1.0));
-      return Offset(i * step, y);
-    });
-  }
-
-  Path _smoothPath(List<Offset> pts) {
-    if (pts.isEmpty) return Path();
-    if (pts.length == 1) return Path()..moveTo(pts[0].dx, pts[0].dy);
-    final path = Path()..moveTo(pts[0].dx, pts[0].dy);
-    for (int i = 0; i < pts.length - 1; i++) {
-      final p0 = pts[i > 0 ? i - 1 : i];
-      final p1 = pts[i];
-      final p2 = pts[i + 1];
-      final p3 = pts[i < pts.length - 2 ? i + 2 : i + 1];
-      final cp1 = Offset(
-        p1.dx + (p2.dx - p0.dx) / 6,
-        p1.dy + (p2.dy - p0.dy) / 6,
-      );
-      final cp2 = Offset(
-        p2.dx - (p3.dx - p1.dx) / 6,
-        p2.dy - (p3.dy - p1.dy) / 6,
-      );
-      path.cubicTo(cp1.dx, cp1.dy, cp2.dx, cp2.dy, p2.dx, p2.dy);
-    }
-    return path;
-  }
-
-  void _drawDashedHorizontalLine(Canvas canvas, double y, double width) {
-    const dash = 6.0;
-    const gap = 4.0;
-    final paint = Paint()
-      ..color = _avgLineColor
-      ..strokeWidth = 1.5;
-    double x = 0;
-    bool draw = true;
-    while (x < width) {
-      final next = math.min(x + (draw ? dash : gap), width);
-      if (draw) canvas.drawLine(Offset(x, y), Offset(next, y), paint);
-      x = next;
-      draw = !draw;
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant _TrendChartPainter old) =>
-      old.values != values || old.average != average || old.highlightIndex != highlightIndex;
 }

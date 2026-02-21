@@ -247,7 +247,7 @@ class _HeartRateGraphState extends State<HeartRateGraph> {
                           value: maxSpot.y.toInt(),
                           hour: maxSpot.x.toInt(),
                           backgroundColor: const Color(0xFF6FA0E1),
-                          image: 'assets/images/indicator.png',
+                          image: 'assets/images/bubble/indicator.png',
                         ),
                       ),
                       // 最低点标签
@@ -258,7 +258,7 @@ class _HeartRateGraphState extends State<HeartRateGraph> {
                           value: minSpot.y.toInt(),
                           hour: minSpot.x.toInt(),
                           backgroundColor: const Color(0xFFF3BACE),
-                          image: 'assets/images/Rectangle.png',
+                          image: 'assets/images/bubble/Rectangle.png',
                         ),
                       ),
                     ],
