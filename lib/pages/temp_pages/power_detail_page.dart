@@ -134,6 +134,7 @@ class PowerDetailPage extends StatelessWidget {
                   ),
                   SizedBox(height: 12),
                   ActivityChart(),
+                  SizedBox(height: 12),
                   Row(
                     children: [
                       Text(
@@ -145,13 +146,8 @@ class PowerDetailPage extends StatelessWidget {
                       ),
                     ],
                   ),
+                  SizedBox(height: 5),
                   IntensityDistributionChart(),
-                  Image.asset(
-                    'assets/images/fake3_4.png',
-                    height: 220,
-                    fit: BoxFit.fitWidth,
-                    width: MediaQuery.of(context).size.width,
-                  ),
                 ],
               ),
             ),

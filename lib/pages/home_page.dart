@@ -5,7 +5,7 @@ import 'package:herplus/pages/community/community_page.dart';
 import 'package:herplus/pages/index/index_page.dart';
 import 'package:herplus/pages/mine/mine_page.dart';
 import 'package:herplus/pages/temp_pages/base_data_page.dart';
-import 'package:herplus/pages/temp_pages/heart_error_page.dart';
+import 'package:herplus/pages/temp_pages/heart_error/heart_error_page.dart';
 import 'package:herplus/pages/temp_pages/lab_page.dart';
 import 'package:herplus/pages/temp_pages/period_page.dart' show PeriodPage;
 import 'package:herplus/pages/temp_pages/power_detail_page.dart';

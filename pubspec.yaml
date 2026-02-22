@@ -38,6 +38,7 @@ dependencies:
   floating_bottom_navigation_bar: ^1.5.2
   custom_sliding_segmented_control: ^1.8.5
   fl_chart: ^1.1.1
+  flutter_svg: ^2.2.3
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +74,8 @@ flutter:
     - assets/images/tracking_intent/
     - assets/images/ai_chat/
     - assets/images/bubble/
+    - assets/images/bg/
+    - assets/svg/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

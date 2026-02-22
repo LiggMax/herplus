@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:herplus/core/utils/nav_utils.dart';
 import 'package:herplus/pages/temp_pages/base_data_page.dart';
-import 'package:herplus/pages/temp_pages/heart_error_page.dart';
+import 'package:herplus/pages/temp_pages/heart_error/heart_error_page.dart';
 import 'package:herplus/pages/temp_pages/period_page.dart';
 import 'package:herplus/pages/temp_pages/power_detail_page.dart';
 import 'package:herplus/pages/temp_pages/sleep_detail_page.dart';
@@ -214,33 +214,38 @@ class IndexPage extends StatelessWidget {
   }
 
   buildFeeling() {
-    return Container(
-      padding: EdgeInsets.all(16),
-      height: 135,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/feeling.png'),
-          fit: BoxFit.fill,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("情绪洞察", style: TextStyle(fontSize: 18, color: Colors.white)),
-          Text(
-            "最近你的睡眠状态不太好了",
-            style: TextStyle(fontSize: 10, color: Colors.white),
-          ),
-          Expanded(
-            child: Container(
-              width: double.infinity,
-              padding: EdgeInsets.only(top: 10, bottom: 5),
-              child: CustomPaint(painter: LineChartPainter()),
+    return
+      GestureDetector(
+        onTap: () => NavUtils.push(HeartErrorPage()),
+        child: Container(
+          padding: EdgeInsets.all(16),
+          height: 135,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/feeling.png'),
+              fit: BoxFit.fill,
             ),
           ),
-        ],
-      ),
-    );
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("情绪洞察", style: TextStyle(fontSize: 18, color: Colors.white)),
+              Text(
+                "最近你的睡眠状态不太好了",
+                style: TextStyle(fontSize: 10, color: Colors.white),
+              ),
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.only(top: 10, bottom: 5),
+                  child: CustomPaint(painter: LineChartPainter()),
+                ),
+              ),
+            ],
+          ),
+        ),
+      )
+      ;
   }
 
   buildSleep() {
